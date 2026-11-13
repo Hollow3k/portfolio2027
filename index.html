@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="ink">
+<html lang="en" data-theme="paper">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -315,7 +315,8 @@
        4. HERO + INTERACTIVE CLOUDY FLAGSHIP SPOTLIGHT STAGE
        ========================================================================== */
     .hero-stage {
-      padding: 58px 0 64px;
+      padding: 140px 0 150px;
+      min-height: 78vh;
       display: grid;
       grid-template-columns: 1.12fr 0.88fr;
       align-items: center;
@@ -388,7 +389,7 @@
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 9px;
+      gap: 4px;
     }
 
     .action-pill {
@@ -407,8 +408,20 @@
     }
 
     .action-pill-icon {
-      width: 38px;
+      width: 30px;
       padding: 0;
+    }
+
+    /* Logo-only icon links: no bubble */
+    .action-pill.action-pill-icon {
+      background-color: transparent;
+      border-color: transparent;
+      color: var(--muted);
+    }
+
+    .action-pill.action-pill-icon:hover {
+      background-color: transparent;
+      color: var(--ink);
     }
 
     .action-pill-primary {
@@ -1758,7 +1771,8 @@
       .hero-stage {
         grid-template-columns: 1fr;
         gap: 28px;
-        padding: 40px 0 48px;
+        padding: 80px 0 90px;
+        min-height: 0;
       }
 
       .bento-card {
@@ -1889,11 +1903,31 @@
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>
           </a>
+          <a
+            href="https://leetcode.com/u/hollow_3k/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="action-pill action-pill-secondary action-pill-icon magnetic-btn"
+            aria-label="LeetCode"
+            title="LeetCode"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.102 17.93l-2.697 2.607c-.466.467-1.111.662-1.823.662s-1.357-.195-1.824-.662l-4.332-4.363c-.467-.467-.702-1.15-.702-1.863s.235-1.357.702-1.824l4.319-4.38c.467-.467 1.125-.645 1.837-.645s1.357.195 1.823.662l2.697 2.606c.514.515 1.365.497 1.9-.038.535-.536.553-1.387.039-1.901l-2.609-2.636a5.055 5.055 0 0 0-2.445-1.337l2.467-2.503c.516-.514.498-1.366-.037-1.901-.535-.535-1.387-.552-1.902-.038l-10.1 10.101c-.981.982-1.494 2.337-1.494 3.835 0 1.498.513 2.895 1.494 3.875l4.347 4.361c.981.979 2.337 1.452 3.834 1.452s2.853-.512 3.835-1.494l2.609-2.637c.514-.514.496-1.365-.039-1.9s-1.386-.553-1.899-.039zM20.811 13.01H10.666c-.702 0-1.27.604-1.27 1.346s.568 1.346 1.27 1.346h10.145c.701 0 1.27-.604 1.27-1.346s-.569-1.346-1.27-1.346z"/></svg>
+          </a>
+          <button
+            type="button"
+            class="action-pill action-pill-secondary action-pill-icon magnetic-btn"
+            onclick="copyEmail()"
+            aria-label="Copy email address"
+            title="Copy email"
+            style="cursor: pointer;"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
+          </button>
         </div>
       </div>
 
       <!-- Interactive Cloudy Spotlight Card -->
-      <aside class="spotlight-card hero-anim" aria-label="Cloudy Browser Agent Interactive Preview">
+      <!-- <aside class="spotlight-card hero-anim" aria-label="Cloudy Browser Agent Interactive Preview">
         <div class="spotlight-intro">
           <span class="spotlight-eyebrow"><span class="pulse-dot" aria-hidden="true"></span>Currently building</span>
           <h2 class="spotlight-heading">Cloudy: tell your browser what to get done.</h2>
@@ -1949,7 +1983,7 @@
             Built vs. planned &rarr;
           </button>
         </div>
-      </aside>
+      </aside> -->
     </section>
 
     <!-- ======================================================================
@@ -2014,7 +2048,7 @@
               <h3 class="bento-title">Higenbot</h3>
             </div>
             <p class="bento-desc">
-              Four-agent LangGraph game studio (<code>Director &rarr; Designer &rarr; Programmer &rarr; QA</code>) generating playable HTML5 Canvas games via strict Pydantic schemas.
+              Give it a game idea and four AI agents plan, design, code and test it, looping until QA passes. You get a playable HTML5 Canvas game.
             </p>
             <div class="bento-tags">
               <span class="bento-chip">LangGraph</span>
@@ -2097,7 +2131,7 @@
               <h3 class="bento-title">Pitch Perfect</h3>
             </div>
             <p class="bento-desc">
-              Real-time voice pitch simulator pitting founders against 5 AI investor personas with live barge-in interruptions and structured rubric scoring.
+              Practice your startup pitch out loud against five AI investors, each with a different personality. They talk back in real time and cut in mid-sentence like real investors do. When you finish, you get scored against a structured rubric.
             </p>
             <div class="bento-tags">
               <span class="bento-chip">ElevenLabs WebRTC</span>
@@ -2152,13 +2186,12 @@
               <h3 class="bento-title">Shay</h3>
             </div>
             <p class="bento-desc">
-              Visual database schema designer with side-by-side AI natural-language schema diffs and multi-dialect SQL export across PostgreSQL, MySQL, and SQLite.
+              Design a database by dragging tables and relationships onto a canvas. Describe a change in plain English and the AI shows a side-by-side diff before anything is applied. When the design is done, export the SQL for PostgreSQL, MySQL or SQLite.
             </p>
             <div class="bento-tags">
               <span class="bento-chip">React Flow</span>
               <span class="bento-chip">TypeScript</span>
               <span class="bento-chip">PostgreSQL</span>
-              <span class="bento-chip">NL Schema Diff</span>
               <span class="bento-inspect-cue">Inspect &rarr;</span>
             </div>
           </div>
@@ -2335,7 +2368,7 @@
           <div class="highlight-stat">300+</div>
           <div class="highlight-title">DSA Problems Solved</div>
           <p class="highlight-desc">
-            Arrays, Trees, Graphs, Dynamic Programming &amp; Sliding Window across coding platforms.
+            Across LeetCode and other coding platforms.
           </p>
         </div>
 
@@ -2474,13 +2507,13 @@
     }
 
     (function initTheme() {
-      let stored = 'ink';
+      let stored = 'paper';
       try {
-        stored = localStorage.getItem('angad-bento-theme') || 'ink';
+        stored = localStorage.getItem('angad-bento-theme') || 'paper';
       } catch (e) {
-        stored = 'ink';
+        stored = 'paper';
       }
-      setTheme(stored === 'paper' ? 'paper' : 'ink');
+      setTheme(stored === 'ink' ? 'ink' : 'paper');
     })();
 
     themeToggle.addEventListener('click', () => {
