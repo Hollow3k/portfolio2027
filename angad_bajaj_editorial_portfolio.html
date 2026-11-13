@@ -1,0 +1,3139 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="ink">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Angad Bajaj — AI Systems &amp; Full-Stack Engineer</title>
+  <link
+    rel="icon"
+    type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23141413'/%3E%3Ctext x='32' y='47' text-anchor='middle' font-family='Georgia,Times New Roman,serif' font-style='italic' font-size='44' fill='%23E05A3E'%3EA%3C/text%3E%3C/svg%3E"
+  />
+  <meta
+    name="description"
+    content="Portfolio of Angad Bajaj — 3rd-year B.Tech CSE student at Guru Gobind Singh Indraprastha University, New Delhi. Full-stack AI engineer focused on LLM agent workflows, reliability, and clean web products."
+  />
+
+  <!-- Google Fonts: Instrument Serif, Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- GSAP 3.12.5 + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
+  <style>
+    /* ==========================================================================
+       1. DESIGN TOKENS — WARM ARCHIVAL PAPER & EVENING INK (LINE-FREE)
+       ========================================================================== */
+    :root,
+    [data-theme="paper"] {
+      --bg: #FAF9F5;
+      --surface: #F3F1EB;
+      --surface-elevated: #FFFFFF;
+      --surface-hover: #ECE9E0;
+      --ink: #141413;
+      --muted: #5C5B56;
+      --subtle: #8C8A82;
+      --border: rgba(20, 20, 19, 0.09);
+      --border-strong: rgba(20, 20, 19, 0.16);
+      --accent: #C84B31;
+      --accent-soft: rgba(200, 75, 49, 0.09);
+      --accent-glow: rgba(200, 75, 49, 0.13);
+      --warm-ambient: rgba(214, 158, 102, 0.11);
+      --dock-bg: rgba(250, 249, 245, 0.80);
+      --card-shadow: 0 10px 30px -12px rgba(20, 20, 19, 0.07), 0 1px 3px rgba(20, 20, 19, 0.04);
+      --card-shadow-hover: 0 22px 46px -14px rgba(20, 20, 19, 0.13), 0 0 0 1px rgba(200, 75, 49, 0.24);
+      --drawer-shadow: -24px 0 64px rgba(20, 20, 19, 0.16);
+      --green: #16A34A;
+      --green-soft: rgba(22, 163, 74, 0.13);
+    }
+
+    [data-theme="ink"] {
+      --bg: #111110;
+      --surface: #191817;
+      --surface-elevated: #1E1D1B;
+      --surface-hover: #242320;
+      --ink: #F2F0E8;
+      --muted: #A19F97;
+      --subtle: #6E6D67;
+      --border: rgba(242, 240, 232, 0.09);
+      --border-strong: rgba(242, 240, 232, 0.16);
+      --accent: #E05A3E;
+      --accent-soft: rgba(224, 90, 62, 0.13);
+      --accent-glow: rgba(224, 90, 62, 0.16);
+      --warm-ambient: rgba(224, 90, 62, 0.07);
+      --dock-bg: rgba(24, 23, 22, 0.80);
+      --card-shadow: 0 14px 36px -12px rgba(0, 0, 0, 0.45), 0 1px 2px rgba(0, 0, 0, 0.30);
+      --card-shadow-hover: 0 24px 50px -14px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(224, 90, 62, 0.28);
+      --drawer-shadow: -24px 0 64px rgba(0, 0, 0, 0.65);
+      --green: #22C55E;
+      --green-soft: rgba(34, 197, 94, 0.16);
+    }
+
+    /* ==========================================================================
+       2. RESET & LINE-FREE ATMOSPHERIC SURFACE
+       ========================================================================== */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      position: relative;
+      min-height: 100vh;
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(ellipse 68% 42% at 50% -6%, var(--accent-glow), transparent 72%),
+        radial-gradient(circle at 85% 24%, var(--warm-ambient), transparent 48%);
+      background-repeat: no-repeat;
+      color: var(--ink);
+      line-height: 1.6;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      overflow-x: hidden;
+    }
+
+    /* Subtle cursor-following atmospheric warmth (pure glow, zero lines) */
+    .ambient-orb {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent-soft) 0%, transparent 68%);
+      pointer-events: none;
+      z-index: 0;
+      transform: translate3d(-50%, -50%, 0);
+      opacity: 0.75;
+      will-change: transform;
+    }
+
+    ::selection {
+      background-color: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+      color: inherit;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* Guarantee first-paint visibility */
+    .reveal-block,
+    .hero-anim {
+      opacity: 1;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ==========================================================================
+       3. TOP 2PX SCROLL PROGRESS BAR & FLOATING GLASS PILL DOCK
+       ========================================================================== */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--accent);
+      transform-origin: 0% 50%;
+      transform: scaleX(0);
+      z-index: 90;
+      pointer-events: none;
+    }
+
+    .dock-wrapper {
+      position: sticky;
+      top: 16px;
+      z-index: 50;
+      padding: 0 16px;
+      pointer-events: none;
+    }
+
+    .glass-dock {
+      pointer-events: auto;
+      max-width: 872px;
+      margin: 0 auto;
+      padding: 8px 10px 8px 18px;
+      border-radius: 9999px;
+      background-color: var(--dock-bg);
+      backdrop-filter: blur(18px) saturate(140%);
+      -webkit-backdrop-filter: blur(18px) saturate(140%);
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px -10px rgba(20, 20, 19, 0.10);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .dock-brand {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    .dock-name {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 21px;
+      line-height: 1;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+
+    .dock-domain {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--subtle);
+    }
+
+    .dock-nav {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      padding: 3px;
+      border-radius: 9999px;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    .dock-nav-pill {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      height: calc(100% - 6px);
+      width: 58px;
+      border-radius: 9999px;
+      background-color: var(--surface-elevated);
+      box-shadow: 0 1px 4px rgba(20, 20, 19, 0.08);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0;
+    }
+
+    .dock-nav a {
+      position: relative;
+      z-index: 1;
+      padding: 5px 12px;
+      border-radius: 9999px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--muted);
+      transition: color 0.2s ease;
+    }
+
+    .dock-nav a:hover,
+    .dock-nav a.active {
+      color: var(--ink);
+    }
+
+    .dock-controls {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      height: 32px;
+      padding: 0 13px;
+      border-radius: 9999px;
+      font-size: 12.5px;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      background-color: var(--surface);
+      color: var(--ink);
+      transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .pill-btn:hover {
+      background-color: var(--surface-hover);
+    }
+
+    .theme-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: var(--accent);
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    [data-theme="ink"] .theme-dot {
+      transform: scale(1.22);
+    }
+
+    .pill-btn-accent {
+      background-color: var(--ink);
+      color: var(--bg);
+      border-color: var(--ink);
+    }
+
+    .pill-btn-accent:hover {
+      opacity: 0.9;
+      background-color: var(--ink);
+    }
+
+    /* ==========================================================================
+       4. HERO + INTERACTIVE CLOUDY FLAGSHIP SPOTLIGHT STAGE
+       ========================================================================== */
+    .hero-stage {
+      padding: 58px 0 64px;
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      align-items: center;
+      gap: 36px;
+    }
+
+    .availability-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 6px 13px;
+      border-radius: 9999px;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 22px;
+    }
+
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: var(--green);
+      box-shadow: 0 0 0 3px var(--green-soft);
+      animation: pulseGreen 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pulseGreen {
+      0%, 100% {
+        box-shadow: 0 0 0 2px var(--green-soft);
+      }
+      50% {
+        box-shadow: 0 0 0 5px rgba(34, 197, 94, 0.05);
+      }
+    }
+
+    .hero-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-weight: 400;
+      font-size: clamp(40px, 5.4vw, 60px);
+      line-height: 1.04;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      margin-bottom: 18px;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-tagline {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(22px, 2.6vw, 28px);
+      line-height: 1.2;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+
+    .hero-bio {
+      font-size: 15.5px;
+      line-height: 1.65;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .action-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      height: 38px;
+      padding: 0 16px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+      will-change: transform;
+    }
+
+    .action-pill-icon {
+      width: 38px;
+      padding: 0;
+    }
+
+    .action-pill-primary {
+      background-color: var(--ink);
+      color: var(--bg);
+      border-color: var(--ink);
+    }
+
+    .action-pill-primary:hover {
+      opacity: 0.9;
+    }
+
+    .action-pill-secondary {
+      background-color: var(--surface-elevated);
+      color: var(--ink);
+    }
+
+    .action-pill-secondary:hover {
+      background-color: var(--surface-hover);
+    }
+
+    /* Cloudy Interactive Spotlight Card */
+    .spotlight-card {
+      border-radius: 20px;
+      background-color: var(--surface-elevated);
+      border: 1px solid var(--border);
+      box-shadow: var(--card-shadow);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .spotlight-intro {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .spotlight-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .spotlight-heading {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-weight: 400;
+      font-size: 22px;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+
+    .spotlight-hint {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .spotlight-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .window-dots {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .window-dots span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--border-strong);
+    }
+
+    .window-dots span:first-child {
+      background-color: var(--accent);
+    }
+
+    .spotlight-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      padding: 3px 9px;
+      border-radius: 9999px;
+      background-color: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .spotlight-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      padding: 4px;
+      border-radius: 12px;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    .spot-tab-btn {
+      padding: 6px 8px;
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      font-weight: 500;
+      color: var(--muted);
+      text-align: center;
+      transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .spot-tab-btn.active {
+      background-color: var(--surface-elevated);
+      color: var(--ink);
+      box-shadow: 0 2px 6px rgba(20, 20, 19, 0.08);
+    }
+
+    .spotlight-stage-body {
+      min-height: 158px;
+      padding: 14px;
+      border-radius: 14px;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .spot-panel {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      gap: 10px;
+      animation: fadeSlideUp 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .spot-panel.active {
+      display: flex;
+    }
+
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .spot-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      color: var(--muted);
+    }
+
+    .spot-quote-box {
+      padding: 10px 12px;
+      border-radius: 10px;
+      background-color: var(--surface-elevated);
+      border: 1px solid var(--border);
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+
+    .cite-chip {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      padding: 1px 5px;
+      border-radius: 5px;
+      background-color: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 500;
+      vertical-align: baseline;
+    }
+
+    .spot-compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .spot-compare-item {
+      padding: 9px 10px;
+      border-radius: 10px;
+      background-color: var(--surface-elevated);
+      border: 1px solid var(--border);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+    }
+
+    .spot-compare-item.selected {
+      border-color: var(--accent);
+      background-color: var(--accent-soft);
+    }
+
+    .spot-gate-card {
+      padding: 10px 12px;
+      border-radius: 10px;
+      background-color: var(--surface-elevated);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .spot-gate-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .gate-btn {
+      padding: 5px 11px;
+      border-radius: 9999px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      font-weight: 500;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    .gate-btn-approve {
+      background-color: var(--accent);
+      color: #FAF9F5;
+    }
+
+    .gate-btn-approve:hover {
+      opacity: 0.92;
+    }
+
+    .gate-btn-reset {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    /* Cloudy end-state demo (auto-playing) */
+    .demo-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+
+    .demo-tab {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 8px;
+      border-radius: 8px;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px;
+      color: var(--subtle);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: color 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+    }
+
+    .demo-tab i {
+      flex-shrink: 0;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--border-strong);
+      transition: background-color 0.25s ease;
+    }
+
+    .demo-tab.active {
+      color: var(--ink);
+      border-color: var(--accent);
+      background-color: var(--surface-elevated);
+    }
+
+    .demo-tab.active i {
+      background-color: var(--accent);
+    }
+
+    .demo-body {
+      height: 420px;
+      padding: 14px;
+      border-radius: 14px;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow: hidden;
+    }
+
+    .demo-item {
+      display: none;
+    }
+
+    .demo-item.is-on {
+      display: block;
+      animation: demoIn 0.35s ease both;
+    }
+
+    .demo-listen.is-on {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: auto 0;
+    }
+
+    .demo-wave {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      height: 26px;
+    }
+
+    .demo-wave span {
+      width: 3px;
+      height: 100%;
+      border-radius: 2px;
+      background-color: var(--accent);
+      transform-origin: center;
+      animation: demoWave 0.9s ease-in-out infinite alternate;
+    }
+
+    .demo-wave span:nth-child(2) { animation-delay: 0.12s; }
+    .demo-wave span:nth-child(3) { animation-delay: 0.24s; }
+    .demo-wave span:nth-child(4) { animation-delay: 0.36s; }
+    .demo-wave span:nth-child(5) { animation-delay: 0.48s; }
+
+    .demo-listen-text {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .demo-listen-text em {
+      font-style: normal;
+      color: var(--ink);
+    }
+
+    .demo-user.is-on {
+      align-self: flex-end;
+      max-width: 94%;
+      padding: 8px 12px;
+      border-radius: 12px 12px 3px 12px;
+      background-color: var(--ink);
+      color: var(--bg);
+      font-size: 12.5px;
+      line-height: 1.45;
+    }
+
+    .demo-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .demo-step.is-on {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--ink);
+    }
+
+    .demo-tick,
+    .demo-done {
+      color: var(--green);
+    }
+
+    .demo-result.is-on {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background-color: var(--surface-elevated);
+      border: 1px solid var(--border);
+    }
+
+    .demo-result-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .demo-best {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .demo-best strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .demo-ask {
+      margin-top: 4px;
+      font-size: 12.5px;
+      color: var(--ink);
+    }
+
+    .demo-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    @keyframes demoIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes demoWave {
+      from { transform: scaleY(0.25); }
+      to { transform: scaleY(1); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .demo-wave span { animation: none; }
+      .demo-item.is-on { animation: none; }
+    }
+
+    .spotlight-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+
+    .spotlight-inspect-link {
+      font-weight: 500;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .spotlight-inspect-link:hover {
+      text-decoration: underline;
+    }
+
+    /* ==========================================================================
+       5. SECTION CHROME & SELECTED WORK BENTO CARDS WITH LIVE SPECIMENS
+       ========================================================================== */
+    .section-block {
+      padding: 56px 0;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-weight: 400;
+      font-size: 36px;
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+    }
+
+    .section-hint {
+      font-size: 13px;
+      color: var(--subtle);
+    }
+
+    .bento-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .bento-card {
+      width: 100%;
+      text-align: left;
+      padding: 24px 26px;
+      border-radius: 20px;
+      background-color: var(--surface-elevated);
+      border: 1px solid var(--border);
+      box-shadow: var(--card-shadow);
+      display: grid;
+      grid-template-columns: 1fr 240px;
+      align-items: center;
+      gap: 24px;
+      cursor: pointer;
+      transition:
+        transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.28s ease,
+        border-color 0.28s ease,
+        background-color 0.28s ease;
+    }
+
+    .bento-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--card-shadow-hover);
+      border-color: rgba(200, 75, 49, 0.26);
+    }
+
+    .bento-left {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .bento-title-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .bento-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--subtle);
+      transition: color 0.2s ease;
+    }
+
+    .bento-card:hover .bento-num {
+      color: var(--accent);
+    }
+
+    .bento-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 30px;
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+    }
+
+    .bento-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 9999px;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .bento-badge-accent {
+      background-color: var(--accent-soft);
+      border-color: transparent;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .bento-desc {
+      font-size: 14.5px;
+      line-height: 1.58;
+      color: var(--muted);
+      max-width: 520px;
+    }
+
+    .bento-desc code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      color: var(--ink);
+    }
+
+    .bento-tags {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      margin-top: 2px;
+    }
+
+    .bento-chip {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 9px;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .bento-inspect-cue {
+      margin-left: 6px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--subtle);
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    .bento-card:hover .bento-inspect-cue {
+      color: var(--accent);
+      transform: translateX(3px);
+    }
+
+    /* ==========================================================================
+       6. EMBEDDED SPECIMEN BOXES (240PX X 126PX)
+       ========================================================================== */
+    .bento-specimen {
+      width: 240px;
+      height: 126px;
+      flex-shrink: 0;
+      border-radius: 14px;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .spec-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px;
+      color: var(--muted);
+      line-height: 1.2;
+    }
+
+    .bento-specimen > .spec-head + :last-child {
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+
+    .bento-specimen > .spec-head + .cs-chat {
+      margin: 14px 0 0;
+      gap: 5px;
+      justify-content: flex-start;
+    }
+
+    .spec-accent {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* Specimen 01: Cloudy Evidence Citations */
+    .spec-cloudy-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .spec-cloudy-line {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 8px;
+      border-radius: 8px;
+      background-color: var(--surface-elevated);
+      border: 1px solid var(--border);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px;
+      color: var(--ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Specimen 01 (animated): Cloudy question -> thinking -> cited answer loop */
+    .cs-live-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      margin-right: 6px;
+      border-radius: 50%;
+      background-color: var(--green);
+      animation: csPulse 1.8s ease-in-out infinite;
+    }
+
+    .cs-chat {
+      position: relative;
+      flex: 1;
+      margin: 7px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      line-height: 1.3;
+    }
+
+    .cs-prompt {
+      align-self: flex-end;
+      max-width: 92%;
+      padding: 4px 8px;
+      border-radius: 8px 8px 2px 8px;
+      background-color: var(--ink);
+      color: var(--bg);
+      flex-shrink: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      animation: csPrompt 9s ease infinite;
+    }
+
+    .cs-step {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background-color: var(--surface-elevated);
+      border: 1px solid var(--border);
+      color: var(--ink);
+      flex-shrink: 0;
+      white-space: nowrap;
+      opacity: 0;
+    }
+
+    .cs-tick {
+      color: var(--green);
+      font-size: 9px;
+    }
+
+    .cs-tick-hold {
+      color: var(--accent);
+      letter-spacing: -1px;
+    }
+
+    .cs-step-1 { animation: csStep1 9s ease infinite; }
+    .cs-step-2 { animation: csStep2 9s ease infinite; }
+    .cs-step-3 {
+      border-color: var(--accent);
+      background-color: var(--accent-soft);
+      animation: csStep3 9s ease infinite;
+    }
+
+    @keyframes csPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
+    }
+
+    @keyframes csPrompt {
+      0%, 3% { opacity: 0; transform: translateY(4px); }
+      8%, 92% { opacity: 1; transform: translateY(0); }
+      98%, 100% { opacity: 0; }
+    }
+
+    @keyframes csStep1 {
+      0%, 18% { opacity: 0; transform: translateY(4px); }
+      26%, 92% { opacity: 1; transform: translateY(0); }
+      98%, 100% { opacity: 0; }
+    }
+
+    @keyframes csStep2 {
+      0%, 36% { opacity: 0; transform: translateY(4px); }
+      44%, 92% { opacity: 1; transform: translateY(0); }
+      98%, 100% { opacity: 0; }
+    }
+
+    @keyframes csStep3 {
+      0%, 56% { opacity: 0; transform: translateY(4px); }
+      64%, 92% { opacity: 1; transform: translateY(0); }
+      98%, 100% { opacity: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cs-prompt, .cs-step { animation: none; opacity: 1; }
+    }
+
+    /* Specimen 02: Higenbot 60FPS HTML5 Canvas Stage */
+    .hb-canvas-stage {
+      width: 100%;
+      height: 84px;
+      border-radius: 9px;
+      overflow: hidden;
+      background-color: var(--surface-elevated);
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    #higenbot-bento-canvas {
+      display: block;
+      width: 100%;
+      height: 84px;
+    }
+
+    /* Specimen 03: Sentinel SHAP Bars */
+    .spec-shap-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .spec-shap-row {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .spec-shap-label {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px;
+      color: var(--muted);
+    }
+
+    .spec-shap-track {
+      height: 5px;
+      border-radius: 9999px;
+      background-color: var(--surface-elevated);
+      overflow: hidden;
+    }
+
+    .spec-shap-bar {
+      height: 100%;
+      border-radius: 9999px;
+      background-color: var(--accent);
+    }
+
+    /* Specimen 04: Pitch Perfect Dual WebRTC Waveforms */
+    .spec-pp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+    }
+
+    .spec-pp-box {
+      padding: 7px 8px;
+      border-radius: 9px;
+      background-color: var(--surface-elevated);
+      border: 1px solid var(--border);
+    }
+
+    .spec-pp-head {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8.5px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .spec-eq {
+      display: flex;
+      align-items: flex-end;
+      gap: 2.5px;
+      height: 28px;
+    }
+
+    .spec-eq span {
+      flex: 1;
+      height: 100%;
+      border-radius: 2px;
+      transform-origin: bottom;
+      animation: eqPulse 1.05s ease-in-out infinite;
+    }
+
+    .spec-eq.tx span {
+      background-color: var(--ink);
+    }
+
+    .spec-eq.rx span {
+      background-color: var(--accent);
+    }
+
+    @keyframes eqPulse {
+      0%, 100% { transform: scaleY(0.24); }
+      50% { transform: scaleY(1); }
+    }
+
+    /* Specimen 05: Shay ER Schema Graph */
+    .spec-shay-box {
+      border-radius: 9px;
+      background-color: var(--surface-elevated);
+      border: 1px solid var(--border);
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .er-dash {
+      stroke-dasharray: 4 3;
+      animation: erFlow 1.4s linear infinite;
+    }
+
+    @keyframes erFlow {
+      to {
+        stroke-dashoffset: -14;
+      }
+    }
+
+    /* ==========================================================================
+       7. EXPERIENCE SECTION
+       ========================================================================== */
+    .exp-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .exp-card {
+      padding: 26px 28px;
+      border-radius: 20px;
+      background-color: var(--surface-elevated);
+      border: 1px solid var(--border);
+      box-shadow: var(--card-shadow);
+    }
+
+    .exp-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .exp-title-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .exp-company {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 28px;
+      line-height: 1.08;
+      color: var(--ink);
+    }
+
+    .exp-role {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--accent);
+    }
+
+    .exp-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--subtle);
+    }
+
+    .exp-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .exp-list li {
+      position: relative;
+      padding-left: 16px;
+      font-size: 14.5px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .exp-list li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: var(--subtle);
+      font-size: 12px;
+    }
+
+    /* ==========================================================================
+       8. TECHNICAL STACK (CLEAN ROWS — NO RIGHT-SIDE PROJECT REFERENCE NUMBERS)
+       ========================================================================== */
+    .stack-card {
+      border-radius: 20px;
+      background-color: var(--surface-elevated);
+      border: 1px solid var(--border);
+      box-shadow: var(--card-shadow);
+      padding: 8px 26px;
+    }
+
+    .stack-row {
+      display: grid;
+      grid-template-columns: 168px 1fr;
+      align-items: baseline;
+      gap: 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stack-row:last-child {
+      border-bottom: none;
+    }
+
+    .stack-cat {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .stack-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .skill-pill {
+      font-size: 13px;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--ink);
+      transition: background-color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+    }
+
+    .skill-pill:hover {
+      background-color: var(--surface-hover);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    /* ==========================================================================
+       9. EDUCATION & RECOGNITION
+       ========================================================================== */
+    .edu-highlights {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .highlight-card {
+      padding: 24px 26px;
+      border-radius: 20px;
+      background-color: var(--surface-elevated);
+      border: 1px solid var(--border);
+      box-shadow: var(--card-shadow);
+    }
+
+    .highlight-stat {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-style: italic;
+      font-size: 50px;
+      line-height: 1;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .highlight-title {
+      font-size: 15.5px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 5px;
+    }
+
+    .highlight-desc {
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+
+    .edu-list-card {
+      border-radius: 20px;
+      background-color: var(--surface-elevated);
+      border: 1px solid var(--border);
+      box-shadow: var(--card-shadow);
+      padding: 6px 26px;
+    }
+
+    .edu-row {
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .edu-row:last-child {
+      border-bottom: none;
+    }
+
+    .edu-row-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .edu-inst {
+      font-size: 15.5px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .edu-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--subtle);
+    }
+
+    .edu-detail {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    /* ==========================================================================
+       10. CLOSING BLOCK & MINIMAL FOOTER (NO SHORTCUT FOOTER TEXT)
+       ========================================================================== */
+    .closing-card {
+      margin-top: 24px;
+      padding: 36px 34px;
+      border-radius: 24px;
+      background-color: var(--surface-elevated);
+      border: 1px solid var(--border);
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .closing-heading {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-weight: 400;
+      font-size: clamp(28px, 4vw, 38px);
+      line-height: 1.12;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      max-width: 500px;
+    }
+
+    .site-footer {
+      padding: 28px 4px 48px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .footer-links a {
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--ink);
+    }
+
+    /* ==========================================================================
+       11. SLIDE-OVER INSPECTION DRAWER (540PX MAX-WIDTH)
+       ========================================================================== */
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(17, 17, 16, 0.45);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 80;
+      transition: opacity 0.26s ease;
+    }
+
+    .drawer-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .project-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      max-width: 540px;
+      height: 100%;
+      background-color: var(--bg);
+      border-left: 1px solid var(--border);
+      box-shadow: var(--drawer-shadow);
+      z-index: 85;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.34s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.28s ease;
+    }
+
+    .project-drawer.open {
+      transform: translateX(0);
+    }
+
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      background-color: var(--bg);
+    }
+
+    .drawer-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .drawer-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 26px 24px 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .drawer-kicker {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      color: var(--accent);
+    }
+
+    .drawer-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 42px;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-top: 4px;
+    }
+
+    .drawer-sub {
+      font-size: 14.5px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .drawer-section-box {
+      padding: 18px 20px;
+      border-radius: 16px;
+      background-color: var(--surface-elevated);
+      border: 1px solid var(--border);
+    }
+
+    .drawer-section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .drawer-section-label.neutral {
+      color: var(--subtle);
+    }
+
+    .drawer-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .drawer-list li {
+      position: relative;
+      padding-left: 14px;
+      font-size: 13.5px;
+      line-height: 1.58;
+      color: var(--muted);
+    }
+
+    .drawer-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    .drawer-list li strong {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .drawer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-top: 4px;
+    }
+
+    /* ==========================================================================
+       12. BOTTOM-RIGHT COPY TOAST
+       ========================================================================== */
+    .copy-toast {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      padding: 10px 16px;
+      border-radius: 9999px;
+      background-color: var(--ink);
+      color: var(--bg);
+      font-size: 12.5px;
+      font-weight: 500;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      z-index: 95;
+      transition: opacity 0.22s ease, transform 0.22s ease;
+    }
+
+    .copy-toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ==========================================================================
+       13. RESPONSIVE ADAPTATIONS
+       ========================================================================== */
+    @media (max-width: 840px) {
+      .hero-stage {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding: 40px 0 48px;
+      }
+
+      .bento-card {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .bento-specimen {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .dock-nav,
+      .dock-domain {
+        display: none;
+      }
+
+      .stack-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .edu-highlights {
+        grid-template-columns: 1fr;
+      }
+
+      .closing-card {
+        padding: 28px 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Top 2px Vermilion Scroll Progress Bar -->
+  <div id="scroll-progress" class="scroll-progress" aria-hidden="true"></div>
+
+  <!-- Subtle Cursor-Reactive Atmospheric Warmth (Pure Glow, Zero Lines) -->
+  <div id="ambient-orb" class="ambient-orb" aria-hidden="true"></div>
+
+  <!-- ========================================================================
+       FLOATING GLASS PILL DOCK (NO SEARCH / NO ⌘K)
+       ======================================================================== -->
+  <div class="dock-wrapper">
+    <header class="glass-dock">
+      <a href="#top" class="dock-brand">
+        <span class="dock-name">Angad Bajaj</span>
+      </a>
+
+      <nav id="dock-nav" class="dock-nav" aria-label="Section Navigation">
+        <div id="dock-nav-pill" class="dock-nav-pill" aria-hidden="true"></div>
+        <a href="#work" data-nav="work">Work</a>
+        <a href="#experience" data-nav="experience">Experience</a>
+        <a href="#stack" data-nav="stack">Stack</a>
+        <a href="#education" data-nav="education">Education</a>
+      </nav>
+
+      <div class="dock-controls">
+        <button
+          id="theme-toggle"
+          type="button"
+          class="pill-btn"
+          aria-label="Toggle Paper or Ink theme"
+        >
+          <span class="theme-dot" aria-hidden="true"></span>
+          <span id="theme-text">Ink</span>
+        </button>
+
+        <button
+          type="button"
+          class="pill-btn pill-btn-accent"
+          onclick="copyEmail(this)"
+          aria-label="Copy email address"
+        >
+          Copy Email
+        </button>
+      </div>
+    </header>
+  </div>
+
+  <main id="top" class="container">
+    <!-- ======================================================================
+         HERO + INTERACTIVE CLOUDY FLAGSHIP SPOTLIGHT STAGE
+         ====================================================================== -->
+    <section class="hero-stage" aria-labelledby="hero-heading">
+      <div>
+        <div class="availability-pill hero-anim">
+          <span class="pulse-dot" aria-hidden="true"></span>
+          <span>Open to 2027 Engineering Internships</span>
+        </div>
+
+        <h1 id="hero-heading" class="hero-title hero-anim">
+          Hi, I'm <em>Angad Bajaj.</em>
+        </h1>
+
+        <p class="hero-tagline hero-anim">I build AI that actually gets things done.</p>
+
+        <p class="hero-bio hero-anim">
+          I'm a student in New Delhi who loves building AI agents and making them feel simple to use. Right now I'm working on Cloudy, a browser agent you can just talk to. Scroll down to see what I've built.
+        </p>
+
+        <div class="hero-actions hero-anim">
+          <a
+            href="Angad-Bajaj-Resume.pdf"
+            download
+            class="action-pill action-pill-primary magnetic-btn"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+            Download Resume
+          </a>
+          <a
+            href="https://github.com/Hollow3k"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="action-pill action-pill-secondary action-pill-icon magnetic-btn"
+            aria-label="GitHub"
+            title="GitHub"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.35.96.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+          </a>
+          <a
+            href="https://linkedin.com/in/angadbajaj23"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="action-pill action-pill-secondary action-pill-icon magnetic-btn"
+            aria-label="LinkedIn"
+            title="LinkedIn"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Interactive Cloudy Spotlight Card -->
+      <aside class="spotlight-card hero-anim" aria-label="Cloudy Browser Agent Interactive Preview">
+        <div class="spotlight-intro">
+          <span class="spotlight-eyebrow"><span class="pulse-dot" aria-hidden="true"></span>Currently building</span>
+          <h2 class="spotlight-heading">Cloudy: tell your browser what to get done.</h2>
+        </div>
+
+        <div class="spotlight-top">
+          <div class="window-dots" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+          <span class="spotlight-badge">Cloudy &middot; Chrome extension</span>
+        </div>
+
+        <div class="demo-tabs" aria-hidden="true">
+          <span class="demo-tab" data-tab="0"><i></i>makemytrip.com</span>
+          <span class="demo-tab" data-tab="1"><i></i>goindigo.in</span>
+          <span class="demo-tab" data-tab="2"><i></i>airindia.com</span>
+        </div>
+
+        <div class="demo-body" id="cloudy-demo" data-stage="0">
+          <div class="demo-item demo-listen" data-show="0" data-hide="1">
+            <div class="demo-wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+            <div class="demo-listen-text">Listening&hellip; <em>&ldquo;Hey Cloudy&rdquo;</em></div>
+          </div>
+
+          <div class="demo-item demo-user" data-show="1">
+            &#127897; Find the cheapest flight from Delhi to Leh. Compare a few, but don&rsquo;t book anything yet.
+          </div>
+
+          <div class="demo-steps">
+            <div class="demo-item demo-step" data-show="2"><span class="demo-tick">&check;</span>Opened 3 tabs</div>
+            <div class="demo-item demo-step" data-show="3"><span class="demo-tick">&check;</span>Read prices on each site</div>
+            <div class="demo-item demo-step" data-show="4"><span class="demo-tick">&check;</span>Compared 4 flights</div>
+          </div>
+
+          <div class="demo-item demo-result" data-show="5">
+            <div class="demo-result-row demo-best">
+              <span>IndiGo &middot; 6:10 AM &middot; Nonstop</span><strong>₹6,450</strong>
+            </div>
+            <div class="demo-result-row">
+              <span>Air India &middot; 7:40 AM &middot; Nonstop</span><span>₹7,820</span>
+            </div>
+            <div class="demo-ask" id="demo-ask-text">Cheapest is IndiGo. Want me to book it?</div>
+            <div class="demo-actions">
+              <button type="button" class="gate-btn gate-btn-approve" onclick="demoApprove()">Yes, book it</button>
+              <button type="button" class="gate-btn gate-btn-reset" onclick="demoReplay()">Not yet</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="spotlight-footer">
+          <span>Chrome side-panel agent</span>
+          <button type="button" class="spotlight-inspect-link" onclick="openDrawer(0)">
+            Built vs. planned &rarr;
+          </button>
+        </div>
+      </aside>
+    </section>
+
+    <!-- ======================================================================
+         SELECTED WORK — EDITORIAL BENTO CARDS WITH LIVE SPECIMENS
+         ====================================================================== -->
+    <section id="work" class="section-block reveal-block" aria-labelledby="work-heading">
+      <div class="section-header">
+        <h2 id="work-heading" class="section-title">Selected Work</h2>
+        <span class="section-hint">Click any card to inspect architecture</span>
+      </div>
+
+      <div class="bento-stack">
+        <!-- 01 · Cloudy -->
+        <div
+          role="button"
+          tabindex="0"
+          class="bento-card"
+          onclick="openDrawer(0)"
+          onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openDrawer(0);}"
+        >
+          <div class="bento-left">
+            <div class="bento-title-row">
+              <span class="bento-num">01</span>
+              <h3 class="bento-title">Cloudy</h3>
+              <span class="bento-badge bento-badge-accent">In Progress</span>
+            </div>
+            <p class="bento-desc">
+              A voice-controlled browser agent that lives in a Chrome side panel. Say what you want done and it uses the browser for you: reads pages, clicks, types and works across tabs, asking before it sends, buys or deletes.
+            </p>
+            <div class="bento-tags">
+              <span class="bento-chip">Chrome MV3</span>
+              <span class="bento-chip">Ollama</span>
+              <span class="bento-chip">JavaScript</span>
+              <span class="bento-chip">DOM Citations</span>
+              <span class="bento-inspect-cue">Inspect &rarr;</span>
+            </div>
+          </div>
+
+          <div class="bento-specimen" aria-hidden="true">
+            <div class="spec-head">
+              <span><span class="cs-live-dot"></span>Cloudy &middot; voice goal</span>
+            </div>
+            <div class="cs-chat">
+              <div class="cs-prompt">&#127897; Delhi &rarr; Leh, cheapest. Don't book.</div>
+              <div class="cs-step cs-step-1"><span class="cs-tick">&check;</span>Compared 4 flights</div>
+              <div class="cs-step cs-step-3"><span class="cs-tick cs-tick-hold">&#10073;&#10073;</span>Waiting for your OK</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 02 · Higenbot (Working 60fps Canvas Runner Inside Specimen Box) -->
+        <div
+          role="button"
+          tabindex="0"
+          class="bento-card"
+          onclick="openDrawer(1)"
+          onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openDrawer(1);}"
+        >
+          <div class="bento-left">
+            <div class="bento-title-row">
+              <span class="bento-num">02</span>
+              <h3 class="bento-title">Higenbot</h3>
+            </div>
+            <p class="bento-desc">
+              Four-agent LangGraph game studio (<code>Director &rarr; Designer &rarr; Programmer &rarr; QA</code>) generating playable HTML5 Canvas games via strict Pydantic schemas.
+            </p>
+            <div class="bento-tags">
+              <span class="bento-chip">LangGraph</span>
+              <span class="bento-chip">Pydantic</span>
+              <span class="bento-chip">WebSockets</span>
+              <span class="bento-chip">HTML5 Canvas</span>
+              <span class="bento-inspect-cue">Inspect &rarr;</span>
+            </div>
+          </div>
+
+          <div class="bento-specimen" aria-hidden="true">
+            <div class="spec-head">
+              <span>QA Loop &middot; Pass</span>
+              <span class="spec-accent">60 FPS</span>
+            </div>
+            <div class="hb-canvas-stage" onclick="event.stopPropagation(); triggerRunnerJump();" title="Click to jump">
+              <canvas id="higenbot-bento-canvas"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- 03 · Sentinel -->
+        <div
+          role="button"
+          tabindex="0"
+          class="bento-card"
+          onclick="openDrawer(2)"
+          onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openDrawer(2);}"
+        >
+          <div class="bento-left">
+            <div class="bento-title-row">
+              <span class="bento-num">03</span>
+              <h3 class="bento-title">Sentinel</h3>
+            </div>
+            <p class="bento-desc">
+              Credit-card fraud scoring service with SHAP feature attribution, idempotent review workflows, and deterministic outage fallbacks (<code>PR-AUC 0.8639</code>).
+            </p>
+            <div class="bento-tags">
+              <span class="bento-chip">XGBoost</span>
+              <span class="bento-chip">SHAP</span>
+              <span class="bento-chip">FastAPI</span>
+              <span class="bento-chip">Docker Compose</span>
+              <span class="bento-inspect-cue">Inspect &rarr;</span>
+            </div>
+          </div>
+
+          <div class="bento-specimen" aria-hidden="true">
+            <div class="spec-head">
+              <span>TXN_8492 &middot; 0.94</span>
+              <span class="spec-accent">FLAGGED</span>
+            </div>
+            <div class="spec-shap-group">
+              <div class="spec-shap-row">
+                <div class="spec-shap-label"><span>V14</span><span class="spec-accent">+0.42</span></div>
+                <div class="spec-shap-track"><div class="spec-shap-bar" style="width: 84%;"></div></div>
+              </div>
+              <div class="spec-shap-row">
+                <div class="spec-shap-label"><span>V17</span><span class="spec-accent">+0.31</span></div>
+                <div class="spec-shap-track"><div class="spec-shap-bar" style="width: 64%;"></div></div>
+              </div>
+              <div class="spec-shap-row">
+                <div class="spec-shap-label"><span>Amt</span><span class="spec-accent">+0.18</span></div>
+                <div class="spec-shap-track"><div class="spec-shap-bar" style="width: 40%;"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 04 · Pitch Perfect -->
+        <div
+          role="button"
+          tabindex="0"
+          class="bento-card"
+          onclick="openDrawer(3)"
+          onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openDrawer(3);}"
+        >
+          <div class="bento-left">
+            <div class="bento-title-row">
+              <span class="bento-num">04</span>
+              <h3 class="bento-title">Pitch Perfect</h3>
+            </div>
+            <p class="bento-desc">
+              Real-time voice pitch simulator pitting founders against 5 AI investor personas with live barge-in interruptions and structured rubric scoring.
+            </p>
+            <div class="bento-tags">
+              <span class="bento-chip">ElevenLabs WebRTC</span>
+              <span class="bento-chip">React</span>
+              <span class="bento-chip">Node.js</span>
+              <span class="bento-chip">Voice AI</span>
+              <span class="bento-inspect-cue">Inspect &rarr;</span>
+            </div>
+          </div>
+
+          <div class="bento-specimen" aria-hidden="true">
+            <div class="spec-head">
+              <span>WebRTC Duplex</span>
+              <span class="spec-accent">&lt;500ms</span>
+            </div>
+            <div class="spec-pp-grid">
+              <div class="spec-pp-box">
+                <div class="spec-pp-head"><span>Founder</span><span>TX</span></div>
+                <div class="spec-eq tx">
+                  <span style="animation-delay:0.05s"></span>
+                  <span style="animation-delay:0.25s"></span>
+                  <span style="animation-delay:0.12s"></span>
+                  <span style="animation-delay:0.42s"></span>
+                  <span style="animation-delay:0.18s"></span>
+                </div>
+              </div>
+              <div class="spec-pp-box">
+                <div class="spec-pp-head"><span>Investor</span><span class="spec-accent">RX</span></div>
+                <div class="spec-eq rx">
+                  <span style="animation-delay:0.28s"></span>
+                  <span style="animation-delay:0.08s"></span>
+                  <span style="animation-delay:0.46s"></span>
+                  <span style="animation-delay:0.16s"></span>
+                  <span style="animation-delay:0.35s"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 05 · Shay -->
+        <div
+          role="button"
+          tabindex="0"
+          class="bento-card"
+          onclick="openDrawer(4)"
+          onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openDrawer(4);}"
+        >
+          <div class="bento-left">
+            <div class="bento-title-row">
+              <span class="bento-num">05</span>
+              <h3 class="bento-title">Shay</h3>
+            </div>
+            <p class="bento-desc">
+              Visual database schema designer with side-by-side AI natural-language schema diffs and multi-dialect SQL export across PostgreSQL, MySQL, and SQLite.
+            </p>
+            <div class="bento-tags">
+              <span class="bento-chip">React Flow</span>
+              <span class="bento-chip">TypeScript</span>
+              <span class="bento-chip">PostgreSQL</span>
+              <span class="bento-chip">NL Schema Diff</span>
+              <span class="bento-inspect-cue">Inspect &rarr;</span>
+            </div>
+          </div>
+
+          <div class="bento-specimen" aria-hidden="true">
+            <div class="spec-head">
+              <span>ER Canvas</span>
+              <span class="spec-accent">PG &middot; MySQL</span>
+            </div>
+            <div class="spec-shay-box">
+              <svg viewBox="0 0 208 66" width="100%" height="66">
+                <rect x="4" y="8" width="74" height="50" rx="6" fill="var(--surface)" stroke="var(--border-strong)" stroke-width="1" />
+                <line x1="4" y1="24" x2="78" y2="24" stroke="var(--border)" stroke-width="1" />
+                <text x="11" y="19" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="500" fill="var(--ink)">users</text>
+                <text x="11" y="37" font-family="JetBrains Mono, monospace" font-size="7.5" fill="var(--accent)">id PK</text>
+                <text x="11" y="50" font-family="JetBrains Mono, monospace" font-size="7.5" fill="var(--muted)">email</text>
+
+                <line x1="78" y1="33" x2="130" y2="33" stroke="var(--accent)" stroke-width="1.4" class="er-dash" />
+                <circle cx="82" cy="33" r="2.2" fill="var(--accent)" />
+                <text x="95" y="27" font-family="JetBrains Mono, monospace" font-size="8" font-weight="500" fill="var(--accent)">1:N</text>
+
+                <rect x="130" y="8" width="74" height="50" rx="6" fill="var(--surface)" stroke="var(--border-strong)" stroke-width="1" />
+                <line x1="130" y1="24" x2="204" y2="24" stroke="var(--border)" stroke-width="1" />
+                <text x="137" y="19" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="500" fill="var(--ink)">orders</text>
+                <text x="137" y="37" font-family="JetBrains Mono, monospace" font-size="7.5" fill="var(--accent)">user_id FK</text>
+                <text x="137" y="50" font-family="JetBrains Mono, monospace" font-size="7.5" fill="var(--muted)">total</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         EXPERIENCE
+         ====================================================================== -->
+    <section id="experience" class="section-block reveal-block" aria-labelledby="experience-heading">
+      <div class="section-header">
+        <h2 id="experience-heading" class="section-title">Experience</h2>
+      </div>
+
+      <div class="exp-stack">
+        <!-- Gravity -->
+        <article class="exp-card">
+          <div class="exp-top">
+            <div class="exp-title-group">
+              <h3 class="exp-company">Gravity</h3>
+              <span class="exp-role">AI Agent Developer Intern</span>
+            </div>
+            <span class="exp-date">Aug – Oct 2026 &middot; Remote</span>
+          </div>
+          <ul class="exp-list">
+            <li>
+              Built 3 production LLM workflow agents on Activepieces (receipt/expense logging with monthly report generation, personalized daily news digest, and GitHub release-notes publisher) gated behind human approval before every outbound action.
+            </li>
+            <li>
+              Designed a 5-node LangGraph resume-to-JD matching pipeline pairing deterministic scoring with semantic LLM evaluation that rejects any claim unsupported by a verbatim resume quote.
+            </li>
+            <li>
+              Hardened pipelines with action deduplication, prompt-injection mitigations, a keyword-only fallback during model outages, and a LangGraph blogger-scout agent scanning Medium for sponsored-post outreach.
+            </li>
+          </ul>
+        </article>
+
+        <!-- Hash Define -->
+        <article class="exp-card">
+          <div class="exp-top">
+            <div class="exp-title-group">
+              <h3 class="exp-company">Hash Define</h3>
+              <span class="exp-role">Technical Team Member</span>
+            </div>
+            <span class="exp-date">2024 – Present &middot; New Delhi</span>
+          </div>
+          <ul class="exp-list">
+            <li>
+              Mentored 30+ undergraduate peers through hands-on sessions in Data Structures, Algorithms, and programming fundamentals.
+            </li>
+            <li>
+              Organized technical events including a campus Codeathon, speaker sessions, and live coding workshops.
+            </li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         TECHNICAL STACK (CLEAN ROWS — NO RIGHT-SIDE PROJECT REFERENCE NUMBERS)
+         ====================================================================== -->
+    <section id="stack" class="section-block reveal-block" aria-labelledby="stack-heading">
+      <div class="section-header">
+        <h2 id="stack-heading" class="section-title">Technical Stack</h2>
+      </div>
+
+      <div class="stack-card">
+        <div class="stack-row">
+          <div class="stack-cat">AI &amp; Agents</div>
+          <div class="stack-pills">
+            <span class="skill-pill">LangGraph</span>
+            <span class="skill-pill">LangChain</span>
+            <span class="skill-pill">Activepieces</span>
+            <span class="skill-pill">Tool Calling</span>
+            <span class="skill-pill">Multi-Agent Workflows</span>
+            <span class="skill-pill">Prompt-Injection Mitigation</span>
+            <span class="skill-pill">Human-in-the-Loop</span>
+          </div>
+        </div>
+
+        <div class="stack-row">
+          <div class="stack-cat">Languages</div>
+          <div class="stack-pills">
+            <span class="skill-pill">Python</span>
+            <span class="skill-pill">TypeScript</span>
+            <span class="skill-pill">JavaScript</span>
+            <span class="skill-pill">Java</span>
+            <span class="skill-pill">C++</span>
+            <span class="skill-pill">SQL</span>
+          </div>
+        </div>
+
+        <div class="stack-row">
+          <div class="stack-cat">Web &amp; Realtime</div>
+          <div class="stack-pills">
+            <span class="skill-pill">React</span>
+            <span class="skill-pill">React Flow</span>
+            <span class="skill-pill">Node.js</span>
+            <span class="skill-pill">Express</span>
+            <span class="skill-pill">FastAPI</span>
+            <span class="skill-pill">REST APIs</span>
+            <span class="skill-pill">WebSockets</span>
+            <span class="skill-pill">Tailwind CSS</span>
+          </div>
+        </div>
+
+        <div class="stack-row">
+          <div class="stack-cat">ML &amp; Data</div>
+          <div class="stack-pills">
+            <span class="skill-pill">XGBoost</span>
+            <span class="skill-pill">SHAP</span>
+            <span class="skill-pill">pandas</span>
+            <span class="skill-pill">scikit-learn</span>
+            <span class="skill-pill">Model Evaluation</span>
+          </div>
+        </div>
+
+        <div class="stack-row">
+          <div class="stack-cat">Databases &amp; Infra</div>
+          <div class="stack-pills">
+            <span class="skill-pill">PostgreSQL</span>
+            <span class="skill-pill">MongoDB</span>
+            <span class="skill-pill">SQLite</span>
+            <span class="skill-pill">Supabase</span>
+            <span class="skill-pill">Docker</span>
+            <span class="skill-pill">Docker Compose</span>
+            <span class="skill-pill">GitHub Actions</span>
+            <span class="skill-pill">pytest</span>
+            <span class="skill-pill">Ruff</span>
+            <span class="skill-pill">Vercel</span>
+            <span class="skill-pill">Render</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         EDUCATION & RECOGNITION
+         ====================================================================== -->
+    <section id="education" class="section-block reveal-block" aria-labelledby="education-heading">
+      <div class="section-header">
+        <h2 id="education-heading" class="section-title">Education &amp; Recognition</h2>
+      </div>
+
+      <div class="edu-highlights">
+        <div class="highlight-card">
+          <div class="highlight-stat">300+</div>
+          <div class="highlight-title">DSA Problems Solved</div>
+          <p class="highlight-desc">
+            Arrays, Trees, Graphs, Dynamic Programming &amp; Sliding Window across coding platforms.
+          </p>
+        </div>
+
+        <div class="highlight-card">
+          <div class="highlight-stat">SIH</div>
+          <div class="highlight-title">Smart India Hackathon</div>
+          <p class="highlight-desc">
+            Official National Phase Nomination for building a gamified financial literacy platform.
+          </p>
+        </div>
+      </div>
+
+      <div class="edu-list-card">
+        <div class="edu-row">
+          <div class="edu-row-top">
+            <span class="edu-inst">Guru Gobind Singh Indraprastha University, New Delhi</span>
+            <span class="edu-date">2024 – 2028</span>
+          </div>
+          <div class="edu-detail">
+            B.Tech in Computer Science Engineering &middot; Coursework: Data Structures &amp; Algorithms, Operating Systems, Computer Networks, OOP, Compiler Design.
+          </div>
+        </div>
+
+        <div class="edu-row">
+          <div class="edu-row-top">
+            <span class="edu-inst">Indraprastha International School, New Delhi</span>
+            <span class="edu-date">2024</span>
+          </div>
+          <div class="edu-detail">
+            CBSE Senior Secondary &middot; Class XII: 90.4% &middot; Class X: 93.5%.
+          </div>
+        </div>
+
+        <div class="edu-row">
+          <div class="edu-row-top">
+            <span class="edu-inst">Certifications</span>
+          </div>
+          <div class="edu-detail">
+            Python (HackerRank) &middot; Data Structures and Algorithms in Java (Apna College).
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         CLOSING CARD & CLEAN FOOTER (NO SHORTCUT FOOTER TEXT)
+         ====================================================================== -->
+    <section class="closing-card reveal-block" aria-label="Closing Call to Action">
+      <h2 class="closing-heading">
+        Looking for a Software Intern who ships reliable AI systems?
+      </h2>
+      <div class="hero-actions">
+        <button
+          type="button"
+          class="action-pill action-pill-primary magnetic-btn"
+          onclick="copyEmail(this)"
+        >
+          Copy Email
+        </button>
+        </a>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div>Angad Bajaj &middot; New Delhi</div>
+      <div class="footer-links">
+        <a href="https://github.com/Hollow3k" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://linkedin.com/in/angadbajaj23" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="mailto:angadbajaj301206@gmail.com">Email</a>
+      </div>
+    </footer>
+  </main>
+
+  <!-- ========================================================================
+       SLIDE-OVER PROJECT INSPECTION DRAWER (540PX MAX-WIDTH)
+       ======================================================================== -->
+  <div id="drawer-backdrop" class="drawer-backdrop" onclick="closeDrawer()" aria-hidden="true"></div>
+
+  <aside
+    id="project-drawer"
+    class="project-drawer"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="drawer-title"
+  >
+    <div class="drawer-header">
+      <div class="drawer-nav">
+        <button type="button" class="pill-btn" onclick="stepDrawer(-1)" aria-label="Previous project">
+          &larr; Prev
+        </button>
+        <span
+          id="drawer-step-label"
+          style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--subtle); padding: 0 4px;"
+        >
+          01 / 05
+        </span>
+        <button type="button" class="pill-btn" onclick="stepDrawer(1)" aria-label="Next project">
+          Next &rarr;
+        </button>
+      </div>
+
+      <button type="button" class="pill-btn" onclick="closeDrawer()" aria-label="Close inspection drawer">
+        Close &times;
+      </button>
+    </div>
+
+    <div id="drawer-content" class="drawer-content">
+      <!-- Populated dynamically when a bento card is clicked -->
+    </div>
+  </aside>
+
+  <!-- Bottom-Right Copy Toast -->
+  <div id="copy-toast" class="copy-toast" role="status" aria-live="polite">
+    Copied angadbajaj301206@gmail.com
+  </div>
+
+  <!-- ========================================================================
+       INTERACTIVE LOGIC, 60FPS CANVAS RUNNER, GSAP MOTION & DRAWER SCRIPT
+       ======================================================================== -->
+  <script>
+    /* ------------------------------------------------------------------------
+       1. THEME TOGGLE (Paper #FAF9F5 <-> Ink #111110, persisted in localStorage)
+       ------------------------------------------------------------------------ */
+    const rootEl = document.documentElement;
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeText = document.getElementById('theme-text');
+
+    function setTheme(mode) {
+      rootEl.setAttribute('data-theme', mode);
+      themeText.textContent = mode === 'ink' ? 'Ink' : 'Paper';
+      try {
+        localStorage.setItem('angad-bento-theme', mode);
+      } catch (e) {
+        // Ignore storage restrictions
+      }
+    }
+
+    (function initTheme() {
+      let stored = 'ink';
+      try {
+        stored = localStorage.getItem('angad-bento-theme') || 'ink';
+      } catch (e) {
+        stored = 'ink';
+      }
+      setTheme(stored === 'paper' ? 'paper' : 'ink');
+    })();
+
+    themeToggle.addEventListener('click', () => {
+      const next = rootEl.getAttribute('data-theme') === 'ink' ? 'paper' : 'ink';
+      setTheme(next);
+    });
+
+    /* ------------------------------------------------------------------------
+       2. TOP 2PX SCROLL PROGRESS & ACTIVE DOCK SECTION HIGHLIGHT
+       ------------------------------------------------------------------------ */
+    const progressEl = document.getElementById('scroll-progress');
+    const dockNav = document.getElementById('dock-nav');
+    const dockPill = document.getElementById('dock-nav-pill');
+    const dockLinks = dockNav ? Array.from(dockNav.querySelectorAll('a[data-nav]')) : [];
+    const trackedSections = ['work', 'experience', 'stack', 'education']
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+
+    function moveDockPill(linkEl) {
+      if (!linkEl || !dockPill) return;
+      dockPill.style.opacity = '1';
+      if (typeof gsap !== 'undefined') {
+        gsap.to(dockPill, {
+          x: linkEl.offsetLeft - 3,
+          width: linkEl.offsetWidth,
+          duration: 0.32,
+          ease: 'power3.out',
+        });
+      } else {
+        dockPill.style.transform = `translateX(${linkEl.offsetLeft - 3}px)`;
+        dockPill.style.width = `${linkEl.offsetWidth}px`;
+      }
+    }
+
+    function updateScrollUI() {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const ratio = docHeight > 0 ? Math.min(1, Math.max(0, scrollTop / docHeight)) : 0;
+      progressEl.style.transform = `scaleX(${ratio})`;
+
+      let currentId = null;
+      const offsetMarker = scrollTop + 180;
+      for (const sec of trackedSections) {
+        if (sec.offsetTop <= offsetMarker) {
+          currentId = sec.id;
+        }
+      }
+
+      dockLinks.forEach((link) => {
+        const isMatch = link.getAttribute('data-nav') === currentId;
+        link.classList.toggle('active', isMatch);
+        if (isMatch) moveDockPill(link);
+      });
+
+      if (!currentId && dockPill) {
+        dockPill.style.opacity = '0';
+      }
+    }
+
+    window.addEventListener('scroll', updateScrollUI, { passive: true });
+    window.addEventListener('resize', updateScrollUI, { passive: true });
+
+    /* ------------------------------------------------------------------------
+       3. SUBTLE CURSOR-FOLLOWING ATMOSPHERIC WARMTH (LINE-FREE)
+       ------------------------------------------------------------------------ */
+    (function initAmbientOrb() {
+      const orb = document.getElementById('ambient-orb');
+      if (!orb) return;
+      let targetX = window.innerWidth * 0.5;
+      let targetY = window.innerHeight * 0.25;
+      let curX = targetX;
+      let curY = targetY;
+
+      window.addEventListener(
+        'mousemove',
+        (e) => {
+          targetX = e.clientX;
+          targetY = e.clientY;
+        },
+        { passive: true }
+      );
+
+      function tickOrb() {
+        curX += (targetX - curX) * 0.08;
+        curY += (targetY - curY) * 0.08;
+        orb.style.transform = `translate3d(${(curX - 260).toFixed(1)}px, ${(curY - 260).toFixed(1)}px, 0)`;
+        requestAnimationFrame(tickOrb);
+      }
+      requestAnimationFrame(tickOrb);
+    })();
+
+    /* ------------------------------------------------------------------------
+       4. CLIPBOARD HELPER WITH BUTTON FEEDBACK & TOAST
+       ------------------------------------------------------------------------ */
+    const EMAIL_ADDRESS = 'angadbajaj301206@gmail.com';
+    let toastTimer = null;
+
+    function copyEmail(triggerBtn) {
+      const temp = document.createElement('input');
+      temp.value = EMAIL_ADDRESS;
+      document.body.appendChild(temp);
+      temp.select();
+      try {
+        document.execCommand('copy');
+      } catch (e) {
+        // Fallback ignored
+      }
+      document.body.removeChild(temp);
+
+      if (triggerBtn) {
+        const original = triggerBtn.textContent.trim();
+        triggerBtn.textContent = 'Copied ✓';
+        setTimeout(() => {
+          triggerBtn.textContent = original;
+        }, 1600);
+      }
+
+      const toast = document.getElementById('copy-toast');
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2200);
+    }
+
+    /* ------------------------------------------------------------------------
+       5. CLOUDY HERO SPOTLIGHT INTERACTIVE STEPPER & GATE DEMO
+       ------------------------------------------------------------------------ */
+    const demoEl = document.getElementById('cloudy-demo');
+    const demoTabs = document.querySelectorAll('.demo-tab');
+    const demoStageDelays = [1900, 1600, 1100, 1100, 1100, 9000];
+    let demoStage = 0;
+    let demoTimer = null;
+
+    function setDemoStage(n) {
+      demoStage = n;
+      demoEl.setAttribute('data-stage', String(n));
+      demoEl.querySelectorAll('.demo-item').forEach((el) => {
+        const show = Number(el.dataset.show);
+        const hide = el.dataset.hide === undefined ? Infinity : Number(el.dataset.hide);
+        el.classList.toggle('is-on', n >= show && n < hide);
+      });
+      demoTabs.forEach((tab, i) => tab.classList.toggle('active', n >= 2 && n <= 4 && i === n - 2));
+    }
+
+    function runDemo() {
+      clearTimeout(demoTimer);
+      const next = () => {
+        demoTimer = setTimeout(() => {
+          if (demoStage >= 5) {
+            demoReplay();
+            return;
+          }
+          setDemoStage(demoStage + 1);
+          next();
+        }, demoStageDelays[demoStage]);
+      };
+      next();
+    }
+
+    function demoReplay() {
+      const ask = document.getElementById('demo-ask-text');
+      const actions = demoEl.querySelector('.demo-actions');
+      if (ask) ask.innerHTML = 'Cheapest is IndiGo. Want me to book it?';
+      if (actions) actions.style.display = '';
+      setDemoStage(0);
+      runDemo();
+    }
+
+    function demoApprove() {
+      clearTimeout(demoTimer);
+      const ask = document.getElementById('demo-ask-text');
+      const actions = demoEl.querySelector('.demo-actions');
+      if (ask) ask.innerHTML = '<span class="demo-done">&check; Booked IndiGo Delhi &rarr; Leh for 6,450.</span>';
+      if (actions) actions.style.display = 'none';
+      demoTimer = setTimeout(demoReplay, 6000);
+    }
+
+    if (demoEl) {
+      setDemoStage(0);
+      runDemo();
+    }
+
+    /* ------------------------------------------------------------------------
+       6. WORKING 60FPS HTML5 CANVAS RUNNER INSIDE HIGENBOT'S BENTO SPECIMEN BOX
+       ------------------------------------------------------------------------ */
+    let runnerManualJumpFn = null;
+
+    function triggerRunnerJump() {
+      if (typeof runnerManualJumpFn === 'function') {
+        runnerManualJumpFn();
+      }
+    }
+
+    function initHigenbotBentoCanvas() {
+      const canvas = document.getElementById('higenbot-bento-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      let logicalW = 216;
+      const logicalH = 84;
+
+      function syncCanvasSize() {
+        const rect = canvas.getBoundingClientRect();
+        logicalW = rect.width > 40 ? Math.round(rect.width) : 216;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = logicalW * dpr;
+        canvas.height = logicalH * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+
+      syncCanvasSize();
+      window.addEventListener('resize', syncCanvasSize, { passive: true });
+
+      const groundY = 67;
+      const player = {
+        x: 32,
+        y: groundY - 13,
+        size: 13,
+        vy: 0,
+        gravity: 0.45,
+        jumpImpulse: -7.8,
+        grounded: true,
+      };
+
+      runnerManualJumpFn = function () {
+        if (player.grounded) {
+          player.vy = player.jumpImpulse;
+          player.grounded = false;
+        }
+      };
+
+      const obstacles = [
+        { x: 150, w: 10, h: 14 },
+        { x: 265, w: 12, h: 17 },
+        { x: 385, w: 10, h: 13 },
+      ];
+
+      const groundTicks = Array.from({ length: 16 }, (_, i) => i * 20);
+      const stars = Array.from({ length: 10 }, (_, i) => ({
+        x: (i * 29) % 240,
+        y: 10 + ((i * 13) % 36),
+        r: i % 3 === 0 ? 1.4 : 0.9,
+        v: i % 2 === 0 ? 0.4 : 0.22,
+      }));
+
+      function drawFrame() {
+        const isInk = rootEl.getAttribute('data-theme') === 'ink';
+        const bg = isInk ? '#1E1D1B' : '#FFFFFF';
+        const groundStroke = isInk ? 'rgba(242, 240, 232, 0.24)' : 'rgba(20, 20, 19, 0.20)';
+        const obsFill = isInk ? '#D6D3C9' : '#232220';
+        const accentFill = isInk ? '#E05A3E' : '#C84B31';
+        const dotFill = isInk ? 'rgba(242, 240, 232, 0.16)' : 'rgba(20, 20, 19, 0.14)';
+
+        const speed = 1.2;
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, logicalW, logicalH);
+
+        // Ambient parallax dots
+        ctx.fillStyle = dotFill;
+        for (let i = 0; i < stars.length; i++) {
+          const s = stars[i];
+          s.x -= s.v;
+          if (s.x < -4) s.x = logicalW + 4;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // Ground baseline + moving hatch ticks
+        ctx.strokeStyle = groundStroke;
+        ctx.lineWidth = 1.1;
+        ctx.beginPath();
+        ctx.moveTo(0, groundY);
+        ctx.lineTo(logicalW, groundY);
+        ctx.stroke();
+
+        for (let i = 0; i < groundTicks.length; i++) {
+          groundTicks[i] -= speed;
+          if (groundTicks[i] < -8) {
+            groundTicks[i] += groundTicks.length * 20;
+          }
+          ctx.beginPath();
+          ctx.moveTo(groundTicks[i], groundY + 3);
+          ctx.lineTo(groundTicks[i] - 4, groundY + 7);
+          ctx.stroke();
+        }
+
+        // Obstacles + early lookahead jump so demo runner never collides
+        ctx.fillStyle = obsFill;
+        for (let i = 0; i < obstacles.length; i++) {
+          const ob = obstacles[i];
+          ob.x -= speed;
+
+          if (ob.x + ob.w < -10) {
+            const maxX = Math.max(...obstacles.map((o) => o.x));
+            ob.x = Math.max(logicalW + 18, maxX + 108 + Math.random() * 28);
+            ob.h = 12 + Math.round(Math.random() * 6);
+          }
+
+          const gap = ob.x - (player.x + player.size);
+          if (gap > 2 && gap < 14 && player.grounded) {
+            player.vy = player.jumpImpulse;
+            player.grounded = false;
+          }
+
+          ctx.beginPath();
+          if (ctx.roundRect) {
+            ctx.roundRect(Math.round(ob.x), Math.round(groundY - ob.h), ob.w, ob.h, 2.5);
+          } else {
+            ctx.rect(Math.round(ob.x), Math.round(groundY - ob.h), ob.w, ob.h);
+          }
+          ctx.fill();
+        }
+
+        // Player jump physics
+        player.vy += player.gravity;
+        player.y += player.vy;
+        const floorY = groundY - player.size;
+        if (player.y >= floorY) {
+          player.y = floorY;
+          player.vy = 0;
+          player.grounded = true;
+        }
+
+        // Ground shadow scaling with jump altitude
+        const altitude = Math.max(0, floorY - player.y);
+        const shadowScale = Math.max(0.35, 1 - altitude / 62);
+        ctx.fillStyle = isInk ? 'rgba(0,0,0,0.45)' : 'rgba(20,20,19,0.16)';
+        ctx.beginPath();
+        ctx.ellipse(
+          player.x + player.size / 2,
+          groundY + 1.8,
+          player.size * 0.55 * shadowScale,
+          1.8 * shadowScale,
+          0,
+          0,
+          Math.PI * 2
+        );
+        ctx.fill();
+
+        // Vermilion runner block
+        ctx.fillStyle = accentFill;
+        ctx.beginPath();
+        if (ctx.roundRect) {
+          ctx.roundRect(Math.round(player.x), Math.round(player.y), player.size, player.size, 3);
+        } else {
+          ctx.rect(Math.round(player.x), Math.round(player.y), player.size, player.size);
+        }
+        ctx.fill();
+
+        requestAnimationFrame(drawFrame);
+      }
+
+      requestAnimationFrame(drawFrame);
+    }
+
+    /* ------------------------------------------------------------------------
+       7. GSAP 3.12.5 + SCROLLTRIGGER CHOREOGRAPHY & MAGNETIC PILLS
+       ------------------------------------------------------------------------ */
+    window.addEventListener('DOMContentLoaded', () => {
+      initHigenbotBentoCanvas();
+      updateScrollUI();
+
+      if (typeof gsap !== 'undefined') {
+        if (typeof ScrollTrigger !== 'undefined') {
+          gsap.registerPlugin(ScrollTrigger);
+        }
+
+        // Crisp hero entrance (transform-only so first-paint opacity is always 1)
+        gsap.from('.hero-anim', {
+          y: 16,
+          duration: 0.72,
+          stagger: 0.08,
+          ease: 'power3.out',
+          clearProps: 'transform',
+        });
+
+        // Subtle scroll-triggered lift on bento project cards
+        if (typeof ScrollTrigger !== 'undefined') {
+          gsap.utils.toArray('.bento-card').forEach((card, i) => {
+            gsap.from(card, {
+              y: 18,
+              duration: 0.62,
+              delay: i * 0.04,
+              ease: 'power3.out',
+              clearProps: 'transform',
+              scrollTrigger: {
+                trigger: card,
+                start: 'top 90%',
+                once: true,
+              },
+            });
+          });
+        }
+
+        // Magnetic pull on action pills
+        document.querySelectorAll('.magnetic-btn').forEach((btn) => {
+          const xTo = gsap.quickTo(btn, 'x', { duration: 0.35, ease: 'power3.out' });
+          const yTo = gsap.quickTo(btn, 'y', { duration: 0.35, ease: 'power3.out' });
+
+          btn.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const relX = e.clientX - (rect.left + rect.width / 2);
+            const relY = e.clientY - (rect.top + rect.height / 2);
+            xTo(relX * 0.22);
+            yTo(relY * 0.28);
+          });
+
+          btn.addEventListener('mouseleave', () => {
+            xTo(0);
+            yTo(0);
+          });
+        });
+      }
+    });
+
+    /* ------------------------------------------------------------------------
+       8. SLIDE-OVER PROJECT INSPECTION DRAWER (540PX MAX-WIDTH)
+       ------------------------------------------------------------------------ */
+    const PROJECTS = [
+      {
+        num: '01',
+        title: 'Cloudy',
+        kicker: 'In Progress · Browser Agent',
+        summary:
+          'A voice-controlled browser agent that lives in a Chrome side panel. You tell it what you want done and it uses the browser for you, instead of just telling you how.',
+        sections: [
+          {
+            label: 'The End Product',
+            accent: true,
+            bullets: [
+              '<strong>Say the goal, it does the browsing:</strong> e.g. <em>&ldquo;Find the cheapest flight from Delhi to Leh for my Ladakh trip, compare the options, but don’t book anything.&rdquo;</em> It reads pages, chooses actions, clicks, types, moves across tabs, and checks the result of each step.',
+              '<strong>General-purpose, not per-site scripts:</strong> The goal is an agent that can work on any website rather than a separate script for every one.',
+              '<strong>You stay in control:</strong> It asks when something is unclear, requires approval before sending, buying or deleting, and lets you interrupt to change the goal. Interrupting pauses pending actions and updates the plan.',
+              '<strong>Hands-free:</strong> A wake word starts listening and a long pause ends it.',
+              '<strong>Scope:</strong> It starts as a browser agent. Whole-PC control is a possible later expansion, not part of the browser version.',
+            ],
+          },
+          {
+            label: 'What Works Today',
+            accent: true,
+            bullets: [
+              '<strong>Side-panel chat:</strong> A working Chrome extension (Manifest V3) connected to a model. For the build phase I’m using <code>qwen3:4b-instruct</code> through Ollama.',
+              '<strong>Read-only &ldquo;Ask about this page&rdquo;:</strong> Captures page content into a snapshot, gives sections and elements evidence IDs (<code>[E1]</code>, <code>[E2]</code>), and answers from that snapshot with citations.',
+              '<strong>Insufficient-evidence response:</strong> When the captured content can’t support an answer, it says so instead of guessing.',
+              '<strong>Better main-content extraction:</strong> Fixed and tested on MDN and Pinterest, beyond the original simple test page (build tests, Nov 12).',
+              '<strong>Structured answers:</strong> The model returns JSON with a status, an answer and citations.',
+            ],
+          },
+          {
+            label: 'Known Issue',
+            accent: false,
+            bullets: [
+              '<strong>Answer quality:</strong> The small model can over-cite and struggle with exact output limits or heading levels. Better page capture doesn’t automatically mean a more reliable answer. I plan to compare <code>qwen3:8b</code> later.',
+            ],
+          },
+          {
+            label: 'Not Built Yet',
+            accent: false,
+            bullets: [
+              'Voice input and wake word',
+              'Clicking and typing on pages',
+              'Multi-tab task execution',
+              'Interruption and replanning',
+              'Approvals for real actions',
+              'Voice engines (speech-to-text, wake-word and end-of-speech detection) are not chosen yet.',
+            ],
+          },
+        ],
+        stack: ['Chrome MV3', 'Ollama', 'qwen3:4b-instruct', 'JavaScript', 'HTML/CSS'],
+        links: [
+          { label: 'GitHub ↗', url: 'https://github.com/Hollow3k/cloudy', primary: true },
+        ],
+      },
+      {
+        num: '02',
+        title: 'Higenbot',
+        kicker: 'LangGraph · WebSockets · 2D Game Studio',
+        summary:
+          'Text-prompt-to-2D-browser-game platform orchestrated by 4 LangGraph agents exchanging strict Pydantic schemas over WebSockets.',
+        sections: [
+          {
+            label: 'Architecture & Pipeline',
+            accent: true,
+            bullets: [
+              '<strong>4-Agent LangGraph Orchestration:</strong> Coordinates <em>Creative Director</em>, <em>Game Designer</em>, <em>Programmer</em>, and <em>QA</em> nodes exchanging strict Pydantic JSON schemas to emit TypeScript + HTML5 Canvas games.',
+              '<strong>Real-Time WebSocket Streaming:</strong> Streams live agent stage progress to the browser alongside a conversational game-editing chat for iterative mechanic tweaks.',
+              '<strong>Automated 3-Retry QA Loop (Designed Architecture):</strong> Structured validation and automated retry loop designed to catch runtime or schema errors before delivering playable builds.',
+            ],
+          },
+        ],
+        stack: ['LangGraph', 'Pydantic', 'FastAPI', 'WebSockets', 'TypeScript', 'HTML5 Canvas'],
+        links: [
+          { label: 'Live Demo ↗', url: 'https://higenbot.vercel.app', primary: true },
+          { label: 'GitHub ↗', url: 'https://github.com/Hollow3k/higenbot', primary: false },
+        ],
+      },
+      {
+        num: '03',
+        title: 'Sentinel',
+        kicker: 'XGBoost · FastAPI · Explainable Fraud Scoring',
+        summary:
+          'Credit-card fraud scoring service with SHAP feature attribution, idempotent review workflows, and deterministic outage fallbacks.',
+        sections: [
+          {
+            label: 'Verified Model & Systems Metrics',
+            accent: true,
+            bullets: [
+              '<strong>Imbalanced Fraud Classification:</strong> XGBoost classifier trained on ~284K transactions (<code>0.17%</code> fraud prevalence) and served via FastAPI and Pydantic.',
+              '<strong>Untouched 20% Test Split Results:</strong> Verified <code>PR-AUC 0.8639</code>, <code>Precision 0.964</code>, and <code>Recall 0.808</code> across 99 fraud cases.',
+              '<strong>SHAP Audit Log &amp; Resilience:</strong> Stores top-3 SHAP feature attributions per flagged transaction in an append-only React analyst audit log, backed by idempotency keys, a rule-based model-outage fallback, and numeric-validated LLM summaries.',
+              '<strong>CI Verification:</strong> Covered by <code>43</code> pytest functions across 5 test files with an enforced <code>90%</code> CI coverage floor and Docker Compose setup.',
+            ],
+          },
+        ],
+        stack: ['XGBoost', 'SHAP', 'FastAPI', 'React', 'pytest', 'Docker Compose'],
+        links: [
+          { label: 'GitHub ↗', url: 'https://github.com/Hollow3k/sentinel', primary: true },
+        ],
+      },
+      {
+        num: '04',
+        title: 'Pitch Perfect',
+        kicker: 'ElevenLabs WebRTC · Real-Time Voice AI',
+        summary:
+          'Real-time voice pitch simulator pitting founders against 5 AI investor personas with live interruptions and structured rubric scoring.',
+        sections: [
+          {
+            label: 'Real-Time Voice & Evaluation',
+            accent: true,
+            bullets: [
+              '<strong>Full-Duplex ElevenLabs WebRTC:</strong> Streams live founder pitch sessions against 5 distinct AI investor personas supporting natural real-time barge-in interruptions.',
+              '<strong>Low-Latency Conversation:</strong> Engineered for reported sub-500ms voice-to-voice turnaround so investor pushback feels immediate and conversational.',
+              '<strong>Structured Post-Pitch Scorecard:</strong> Analyzes full session transcripts to generate 1–10 scores across 4 rubric metrics, investor-fit assessment, and actionable coaching feedback.',
+            ],
+          },
+        ],
+        stack: ['ElevenLabs WebRTC', 'React', 'Node.js', 'Voice AI', 'Structured Rubrics'],
+        links: [
+          { label: 'Live Demo ↗', url: 'https://pitchperfect.angad.social', primary: true },
+          { label: 'GitHub ↗', url: 'https://github.com/Hollow3k/pitch-perfect', primary: false },
+        ],
+      },
+      {
+        num: '05',
+        title: 'Shay',
+        kicker: 'React Flow · PostgreSQL · NL Schema Diffs',
+        summary:
+          'Visual database schema designer with side-by-side AI natural-language schema diffs and multi-dialect SQL export.',
+        sections: [
+          {
+            label: 'Visual Modeling & Safe AI Diffs',
+            accent: true,
+            bullets: [
+              '<strong>Interactive React Flow Canvas:</strong> Drag-and-drop table, column, primary/foreign key, and relationship modeling on an infinite graph canvas.',
+              '<strong>Side-by-Side AI Schema Diffs:</strong> Natural-language assistant generates proposed schema drafts for visual diff inspection before applying mutations to the live graph.',
+              '<strong>Multi-Dialect SQL Export &amp; Autosave:</strong> One-click DDL export across <code>PostgreSQL</code>, <code>MySQL</code>, and <code>SQLite</code> paired with debounced local/cloud autosave.',
+            ],
+          },
+        ],
+        stack: ['React Flow', 'TypeScript', 'PostgreSQL', 'MySQL', 'SQLite', 'Tailwind CSS'],
+        links: [
+          { label: 'Live Demo ↗', url: 'https://shay-five.vercel.app', primary: true },
+          { label: 'GitHub ↗', url: 'https://github.com/Hollow3k/shay', primary: false },
+        ],
+      },
+    ];
+
+    let activeDrawerIdx = 0;
+    const drawerEl = document.getElementById('project-drawer');
+    const backdropEl = document.getElementById('drawer-backdrop');
+    const drawerContent = document.getElementById('drawer-content');
+    const drawerStepLabel = document.getElementById('drawer-step-label');
+
+    function renderDrawer(index) {
+      activeDrawerIdx = (index + PROJECTS.length) % PROJECTS.length;
+      const p = PROJECTS[activeDrawerIdx];
+      drawerStepLabel.textContent = `${p.num} / 0${PROJECTS.length}`;
+
+      drawerContent.innerHTML = `
+        <div>
+          <div class="drawer-kicker">${p.num} &middot; ${p.kicker}</div>
+          <h2 id="drawer-title" class="drawer-title">${p.title}</h2>
+          <p class="drawer-sub" style="margin-top: 12px;">${p.summary}</p>
+        </div>
+
+        ${p.sections
+          .map(
+            (sec) => `
+          <div class="drawer-section-box">
+            <div class="drawer-section-label ${sec.accent ? '' : 'neutral'}">${sec.label}</div>
+            <ul class="drawer-list">
+              ${sec.bullets.map((b) => `<li>${b}</li>`).join('')}
+            </ul>
+          </div>
+        `
+          )
+          .join('')}
+
+        <div>
+          <div class="drawer-section-label neutral">Technologies</div>
+          <div class="stack-pills">
+            ${p.stack.map((s) => `<span class="skill-pill">${s}</span>`).join('')}
+          </div>
+        </div>
+
+        <div class="drawer-links">
+          ${p.links
+            .map(
+              (l) => `
+            <a
+              href="${l.url}"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="action-pill ${l.primary ? 'action-pill-primary' : 'action-pill-secondary'}"
+            >
+              ${l.label}
+            </a>
+          `
+            )
+            .join('')}
+        </div>
+      `;
+
+      drawerContent.scrollTop = 0;
+    }
+
+    function openDrawer(index) {
+      renderDrawer(index);
+      backdropEl.classList.add('open');
+      drawerEl.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDrawer() {
+      backdropEl.classList.remove('open');
+      drawerEl.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function stepDrawer(delta) {
+      renderDrawer(activeDrawerIdx + delta);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (!drawerEl.classList.contains('open')) return;
+      if (e.key === 'Escape') closeDrawer();
+      if (e.key === 'ArrowLeft') stepDrawer(-1);
+      if (e.key === 'ArrowRight') stepDrawer(1);
+    });
+  </script>
+</body>
+</html>
