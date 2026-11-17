@@ -1647,7 +1647,7 @@
       top: 0;
       right: 0;
       width: 100%;
-      max-width: 540px;
+      max-width: min(540px, 100vw);
       height: 100%;
       background-color: var(--bg);
       border-left: 1px solid var(--border);
@@ -2992,18 +2992,11 @@
             label: 'What Works Today',
             accent: true,
             bullets: [
-              '<strong>Side-panel chat:</strong> A working Chrome extension (Manifest V3) connected to a model. For the build phase I’m using <code>qwen3:4b-instruct</code> through Ollama.',
-              '<strong>Read-only &ldquo;Ask about this page&rdquo;:</strong> Captures page content into a snapshot, gives sections and elements evidence IDs (<code>[E1]</code>, <code>[E2]</code>), and answers from that snapshot with citations.',
-              '<strong>Insufficient-evidence response:</strong> When the captured content can’t support an answer, it says so instead of guessing.',
-              '<strong>Better main-content extraction:</strong> Fixed and tested on MDN and Pinterest, beyond the original simple test page (build tests, Nov 12).',
-              '<strong>Structured answers:</strong> The model returns JSON with a status, an answer and citations.',
-            ],
-          },
-          {
-            label: 'Known Issue',
-            accent: false,
-            bullets: [
-              '<strong>Answer quality:</strong> The small model can over-cite and struggle with exact output limits or heading levels. Better page capture doesn’t automatically mean a more reliable answer. I plan to compare <code>qwen3:8b</code> later.',
+              '<strong>Local side-panel assistant:</strong> A Chrome Manifest V3 extension using <code>qwen3:4b-instruct</code> through local Ollama. Text input works; voice is planned.',
+              '<strong>Page-grounded Q&amp;A:</strong> Reads a bounded page snapshot and returns structured answers with checked evidence references and source cards. It can report insufficient evidence.',
+              '<strong>Page actions:</strong> Clicks supported controls, types into ordinary fields, searches and scrolls. Single-action mode previews a proposal for approval and rechecks the target before execution.',
+              '<strong>Multi-step tasks:</strong> One Start approval covers routine steps, followed by fresh capture, one action, execution and recapture. Short task memory, clarification answers with Continue, Stop, and no-progress/recovery stopping are included. Consequential-looking controls use a separate confirmation flow; detection is not guaranteed for every consequential action.',
+              '<strong>Tab-aware context:</strong> Refreshes the active-page context while the panel is open; switching away stops the run. This is not multi-tab task execution.',
             ],
           },
           {
@@ -3011,10 +3004,8 @@
             accent: false,
             bullets: [
               'Voice input and wake word',
-              'Clicking and typing on pages',
               'Multi-tab task execution',
               'Interruption and replanning',
-              'Approvals for real actions',
               'Voice engines (speech-to-text, wake-word and end-of-speech detection) are not chosen yet.',
             ],
           },
