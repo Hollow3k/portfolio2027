@@ -1848,8 +1848,8 @@
 
       <nav id="dock-nav" class="dock-nav" aria-label="Section Navigation">
         <div id="dock-nav-pill" class="dock-nav-pill" aria-hidden="true"></div>
-        <a href="#work" data-nav="work">Work</a>
         <a href="#experience" data-nav="experience">Experience</a>
+        <a href="#work" data-nav="work">Work</a>
         <a href="#stack" data-nav="stack">Stack</a>
         <a href="#education" data-nav="education">Education</a>
       </nav>
@@ -2008,6 +2008,74 @@
           </button>
         </div>
       </aside> -->
+    </section>
+
+    <!-- ======================================================================
+         EXPERIENCE
+         ====================================================================== -->
+    <section id="experience" class="section-block reveal-block" aria-labelledby="experience-heading">
+      <div class="section-header">
+        <h2 id="experience-heading" class="section-title">Experience</h2>
+      </div>
+
+      <div class="exp-stack">
+        <!-- Straveda -->
+        <article class="exp-card">
+          <div class="exp-top">
+            <div class="exp-title-group">
+              <h3 class="exp-company">Straveda</h3>
+              <span class="exp-role">Forward Deployed Engineer Intern</span>
+            </div>
+            <span class="exp-date">Nov 2026 – Present &middot; Remote</span>
+          </div>
+          <ul class="exp-list">
+            <li>
+              Working directly with clients to understand their needs and build full-stack, AI-powered solutions.
+            </li>
+          </ul>
+        </article>
+
+        <!-- Gravity -->
+        <article class="exp-card">
+          <div class="exp-top">
+            <div class="exp-title-group">
+              <h3 class="exp-company">Gravity</h3>
+              <span class="exp-role">AI Agent Developer Intern</span>
+            </div>
+            <span class="exp-date">Aug – Oct 2026 &middot; Remote</span>
+          </div>
+          <ul class="exp-list">
+            <li>
+              Built 3 production LLM workflow agents on Activepieces (receipt/expense logging with monthly report generation, personalized daily news digest, and GitHub release-notes publisher) gated behind human approval before every outbound action.
+            </li>
+            <li>
+              Designed a 5-node LangGraph resume-to-JD matching pipeline pairing deterministic scoring with semantic LLM evaluation that rejects any claim unsupported by a verbatim resume quote.
+            </li>
+            <li>
+              Hardened pipelines with action deduplication, prompt-injection mitigations, a keyword-only fallback during model outages, and a LangGraph blogger-scout agent scanning Medium for sponsored-post outreach.
+            </li>
+          </ul>
+        </article>
+
+        <!-- Hash Define -->
+        <article class="exp-card">
+          <div class="exp-top">
+            <div class="exp-title-group">
+              <h3 class="exp-company">Hash Define</h3>
+              <span class="exp-role">Technical Team Member</span>
+            </div>
+            <span class="exp-date">2024 – Present &middot; New Delhi</span>
+          </div>
+          <ul class="exp-list">
+            <li>
+              Taught Data Structures, Algorithms and programming fundamentals to 30+ juniors through hands-on, problem-solving sessions.
+            </li>
+            <li>
+              Helped run the society's technical events, including a campus Codeathon, speaker sessions and live coding workshops.
+            </li>
+          </ul>
+        </article>
+      </div>
     </section>
 
     <!-- ======================================================================
@@ -2246,74 +2314,6 @@
             </div>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- ======================================================================
-         EXPERIENCE
-         ====================================================================== -->
-    <section id="experience" class="section-block reveal-block" aria-labelledby="experience-heading">
-      <div class="section-header">
-        <h2 id="experience-heading" class="section-title">Experience</h2>
-      </div>
-
-      <div class="exp-stack">
-        <!-- Straveda -->
-        <article class="exp-card">
-          <div class="exp-top">
-            <div class="exp-title-group">
-              <h3 class="exp-company">Straveda</h3>
-              <span class="exp-role">Forward Deployed Engineer Intern</span>
-            </div>
-            <span class="exp-date">Nov 2026 – Present &middot; Remote</span>
-          </div>
-          <ul class="exp-list">
-            <li>
-              Working directly with clients to understand their needs and build full-stack, AI-powered solutions.
-            </li>
-          </ul>
-        </article>
-
-        <!-- Gravity -->
-        <article class="exp-card">
-          <div class="exp-top">
-            <div class="exp-title-group">
-              <h3 class="exp-company">Gravity</h3>
-              <span class="exp-role">AI Agent Developer Intern</span>
-            </div>
-            <span class="exp-date">Aug – Oct 2026 &middot; Remote</span>
-          </div>
-          <ul class="exp-list">
-            <li>
-              Built 3 production LLM workflow agents on Activepieces (receipt/expense logging with monthly report generation, personalized daily news digest, and GitHub release-notes publisher) gated behind human approval before every outbound action.
-            </li>
-            <li>
-              Designed a 5-node LangGraph resume-to-JD matching pipeline pairing deterministic scoring with semantic LLM evaluation that rejects any claim unsupported by a verbatim resume quote.
-            </li>
-            <li>
-              Hardened pipelines with action deduplication, prompt-injection mitigations, a keyword-only fallback during model outages, and a LangGraph blogger-scout agent scanning Medium for sponsored-post outreach.
-            </li>
-          </ul>
-        </article>
-
-        <!-- Hash Define -->
-        <article class="exp-card">
-          <div class="exp-top">
-            <div class="exp-title-group">
-              <h3 class="exp-company">Hash Define</h3>
-              <span class="exp-role">Technical Team Member</span>
-            </div>
-            <span class="exp-date">2024 – Present &middot; New Delhi</span>
-          </div>
-          <ul class="exp-list">
-            <li>
-              Taught Data Structures, Algorithms and programming fundamentals to 30+ juniors through hands-on, problem-solving sessions.
-            </li>
-            <li>
-              Helped run the society's technical events, including a campus Codeathon, speaker sessions and live coding workshops.
-            </li>
-          </ul>
-        </article>
       </div>
     </section>
 
@@ -2577,7 +2577,7 @@
     const dockNav = document.getElementById('dock-nav');
     const dockPill = document.getElementById('dock-nav-pill');
     const dockLinks = dockNav ? Array.from(dockNav.querySelectorAll('a[data-nav]')) : [];
-    const trackedSections = ['work', 'experience', 'stack', 'education']
+    const trackedSections = ['experience', 'work', 'stack', 'education']
       .map((id) => document.getElementById(id))
       .filter(Boolean);
 
